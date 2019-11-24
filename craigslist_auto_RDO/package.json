@@ -1,0 +1,22 @@
+{
+  "name": "craigslist_auto_rdo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChuanKing/craigslist_auto_RDO.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChuanKing/craigslist_auto_RDO/issues"
+  },
+  "homepage": "https://github.com/ChuanKing/craigslist_auto_RDO#readme",
+  "dependencies": {
+    "aws-sdk": "^2.577.0"
+  }
+}
