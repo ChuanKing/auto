@@ -26,20 +26,26 @@ unzip historical.zip
 cd ${SCRIPT_HOME}/craigslist_auto_RDO
 node tst/testHandler.js ${DATE} ${OUTPUT}/raw-data ${OUTPUT}/processed-data
 
-# 6. zip output
+# 6. create report
+cd ${SCRIPT_HOME}/craigslist_reporter
+node run.js ${OUTPUT}/processed-data
+
+# 7. zip output
 cd ${OUTPUT}/processed-data
 zip -r historical.zip historical.jl
 zip -r ${DATE}-expired.zip expired.jl
 
-# 7. clean s3 folder
+# 8. clean s3 folder
 aws s3 rm s3://qinchuan-auto/craigslist/historical/historical.zip
 aws s3 rm s3://qinchuan-auto/craigslist/today-new/new.jl
+aws s3 rm s3://qinchuan-auto/craigslist/today-new/index.html
 
-# 8. upload
+# 9. upload
 cd ${OUTPUT}/processed-data
 aws s3 cp new.jl s3://qinchuan-auto/craigslist/today-new/new.jl
+aws s3 cp new.jl s3://qinchuan-auto/craigslist/today-new/index.html
 aws s3 cp historical.zip s3://qinchuan-auto/craigslist/historical/historical.zip
 aws s3 cp ${DATE}-expired.zip s3://qinchuan-auto/craigslist/expired/${DATE}-expired.zip
 
-# 9. clean up
+# 10. clean up
 rm -rf ${OUTPUT}
