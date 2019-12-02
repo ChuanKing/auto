@@ -31,6 +31,8 @@ cd ${SCRIPT_HOME}/craigslist_reporter
 node run.js ${OUTPUT}/processed-data
 
 # 7. zip output
+cd ${OUTPUT}/raw-data
+zip -r ${DATE}.zip ${DATE}.jl
 cd ${OUTPUT}/processed-data
 zip -r historical.zip historical.jl
 zip -r ${DATE}-expired.zip expired.jl
@@ -41,9 +43,11 @@ aws s3 rm s3://qinchuan-auto/craigslist/today-new/new.jl
 aws s3 rm s3://qinchuan-auto/craigslist/today-new/index.html
 
 # 9. upload
+cd ${OUTPUT}/raw-data
+aws s3 cp ${DATE}.zip s3://qinchuan-auto/craigslist/raw-data/${DATE}.zip
 cd ${OUTPUT}/processed-data
 aws s3 cp new.jl s3://qinchuan-auto/craigslist/today-new/new.jl
-aws s3 cp new.jl s3://qinchuan-auto/craigslist/today-new/index.html
+aws s3 cp index.html s3://qinchuan-auto/craigslist/today-new/index.html
 aws s3 cp historical.zip s3://qinchuan-auto/craigslist/historical/historical.zip
 aws s3 cp ${DATE}-expired.zip s3://qinchuan-auto/craigslist/expired/${DATE}-expired.zip
 
